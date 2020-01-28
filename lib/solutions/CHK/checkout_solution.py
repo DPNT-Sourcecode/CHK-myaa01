@@ -18,6 +18,16 @@ def checkout(skus):
             'price': 15,
         }
     }
+    special_offers = {
+        'A': {
+            'amount': 3,
+            'offer_price': 130,
+        },
+        'B': {
+            'amount': 2,
+            'offer_price': 45,
+        }
+    }
     if not all(sku in registered_skus for sku in skus):
         return -1
 
@@ -27,9 +37,12 @@ def checkout(skus):
     letter_counts = Counter(skus)
     price = 0
     for letter, count in letter_counts.items():
+        if special_offers[letter]:
+            set_amount = special_offers[letter][amount]
         price += (sku_prices[letter]['price'] * count)
 
     return price
+
 
 
 
