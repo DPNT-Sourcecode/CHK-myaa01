@@ -13,6 +13,5 @@ class TestCheckout():
     def test_empty_input(self):
         assert checkout_solution.checkout('') == 0
 
-
-
-
+    def test_singular_skus(self):
+        assert checkout_solution.checkout('ABCD') == 115

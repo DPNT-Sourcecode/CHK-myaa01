@@ -9,4 +9,3 @@ def checkout(skus):
 
     if len(skus) == 0:
         return 0
-
