@@ -3,7 +3,7 @@ from collections import Counter
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus):
-    registered_skus = ('A', 'B', 'C', 'D')
+    registered_skus = ('A', 'B', 'C', 'D', 'E')
     sku_prices = {
         'A': {
             'price': 50,
@@ -16,6 +16,9 @@ def checkout(skus):
         },
         'D': {
             'price': 15,
+        }
+        'E': {
+            'price': 40,
         }
     }
     special_offers = {
@@ -34,7 +37,7 @@ def checkout(skus):
             'offer_price': 45,
         }
     }
-    if not all(sku in registered_skus for sku in skus):
+    if not all(sku in sku_prices for sku in skus):
         return -1
 
     if len(skus) == 0:
@@ -42,12 +45,16 @@ def checkout(skus):
 
     letter_counts = Counter(skus)
     price = 0
+    if letter == 'E':
+
     for letter, count in letter_counts.items():
         if letter in special_offers:
             set_amount = special_offers[letter]['amount']
             set_frequency, count = divmod(count, set_amount)
             price += (special_offers[letter]['offer_price'] * set_frequency)
+
         price += (sku_prices[letter]['price'] * count)
 
     return price
+
 
