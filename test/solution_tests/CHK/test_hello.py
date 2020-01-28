@@ -15,3 +15,7 @@ class TestCheckout():
 
     def test_singular_skus(self):
         assert checkout_solution.checkout('ABCD') == 115
+
+    def test_multiple_priced_skus(self):
+        assert checkout_solution.checkout('AAA') == 130
+
