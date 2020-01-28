@@ -25,18 +25,20 @@ def checkout(skus):
     letter_counts = Counter(skus)
     price = 0
 
-    count_E = letter_counts.pop('E')
-    set_frequency, count_E = divmod(count_E, 2)
-    while letter_counts['B'] > 0 and set_frequency > 0:
-        letter_counts['B'] -= 1
-    price += (sku_prices['E'] * count_E)
+    if 'E' in letter_counts:
+        count_E = letter_counts.pop('E')
+        set_frequency = count_E // 2
+        while letter_counts['B'] > 0 and set_frequency > 0:
+            letter_counts['B'] -= 1
+        price += (sku_prices['E'] * count_E)
 
-    count_A = letter_counts.pop('A')
-    set_frequency, count_A = divmod(count_A, 5)
-    price += (200 * set_frequency)
-    set_frequency, count_A = divmod(count_A, 3)
-    price += (130 * set_frequency)
-    price += (sku_prices['A'] * count_A)
+    if 'A' in letter_counts:
+        count_A = letter_counts.pop('A')
+        set_frequency, count_A = divmod(count_A, 5)
+        price += (200 * set_frequency)
+        set_frequency, count_A = divmod(count_A, 3)
+        price += (130 * set_frequency)
+        price += (sku_prices['A'] * count_A)
 
     for letter, count in letter_counts.items():
         if letter in special_offers:
@@ -47,4 +49,5 @@ def checkout(skus):
         price += (sku_prices[letter] * count)
 
     return price
+
 
