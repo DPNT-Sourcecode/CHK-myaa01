@@ -16,21 +16,15 @@ def checkout(skus):
         },
         'D': {
             'price': 15,
-        }
+        },
         'E': {
             'price': 40,
         }
     }
     special_offers = {
         'A': {
-            [
-                'amount': 3,
-                'offer_price': 130,
-            ],
-            [
-                'amount': 5,
-                'offer_price': 200,
-            ]
+            3: 130,
+            5: 200,
         },
         'B': {
             'amount': 2,
@@ -56,5 +50,6 @@ def checkout(skus):
         price += (sku_prices[letter]['price'] * count)
 
     return price
+
 
 
