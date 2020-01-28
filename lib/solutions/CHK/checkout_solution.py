@@ -3,32 +3,17 @@ from collections import Counter
 # noinspection PyUnusedLocal
 # skus = unicode string
 def checkout(skus):
-    registered_skus = ('A', 'B', 'C', 'D', 'E')
     sku_prices = {
-        'A': {
-            'price': 50,
-        },
-        'B': {
-            'price': 30,
-        },
-        'C': {
-            'price': 20,
-        },
-        'D': {
-            'price': 15,
-        },
-        'E': {
-            'price': 40,
-        }
+        'A': 50,
+        'B': 30,
+        'C': 20,
+        'D': 15,
+        'E': 40,
     }
     special_offers = {
-        'A': {
-            3: 130,
-            5: 200,
-        },
         'B': {
             'amount': 2,
-            'offer_price': 45,
+            'offer_price': 45
         }
     }
     if not all(sku in sku_prices for sku in skus):
@@ -39,13 +24,19 @@ def checkout(skus):
 
     letter_counts = Counter(skus)
     price = 0
-    if letter == 'E':
-        count = letter_counts[letter]
-        set_frequency, count = divmod(count, 2)
 
-        while letter_counts['B'] > 0 and set_frequency > 0:
-            letter_counts['B'] -= 1
-        price += (sku_prices[letter]['price'] * count)
+    count_E = letter_counts.pop('E')
+    set_frequency, count_E = divmod(count_E, 2)
+    while letter_counts['B'] > 0 and set_frequency > 0:
+        letter_counts['B'] -= 1
+    price += (sku_prices['E'] * count_E)
+
+    count_A = letter_counts.pop('A')
+    set_frequency, count_A = divmod(count_A, 5)
+    price += (200 * set_frequency)
+    set_frequency, count_A = divmod(count_A, 3)
+    price += (130 * set_frequency)
+    price += (sku_prices['A'] * count_A)
 
     for letter, count in letter_counts.items():
         if letter in special_offers:
@@ -53,6 +44,7 @@ def checkout(skus):
             set_frequency, count = divmod(count, set_amount)
             price += (special_offers[letter]['offer_price'] * set_frequency)
 
-        price += (sku_prices[letter]['price'] * count)
+        price += (sku_prices[letter] * count)
 
     return price
+
