@@ -27,9 +27,9 @@ def checkout(skus):
     letter_counts = Counter(skus)
     price = 0
     for letter, count in letter_counts.items():
-        import pdb; pdb.set_trace()
-        price += (sku_prices[letter][price] * count)
+        price += (sku_prices[letter]['price'] * count)
 
     return price
+
 
 
