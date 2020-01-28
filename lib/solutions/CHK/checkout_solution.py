@@ -43,8 +43,8 @@ def checkout(skus):
         count = letter_counts[letter]
         set_frequency, count = divmod(count, 2)
 
-        if letter_counts['B'] > 0:
-            letter_counts['B'] -= set_frequency
+        while letter_counts['B'] > 0 and set_frequency > 0:
+            letter_counts['B'] -= 1
         price += (sku_prices[letter]['price'] * count)
 
     for letter, count in letter_counts.items():
@@ -56,6 +56,7 @@ def checkout(skus):
         price += (sku_prices[letter]['price'] * count)
 
     return price
+
 
 
 
