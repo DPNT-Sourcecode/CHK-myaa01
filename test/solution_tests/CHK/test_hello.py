@@ -21,5 +21,3 @@ class TestCheckout():
         assert checkout_solution.checkout('AAAA') == 180
         assert checkout_solution.checkout('BB') == 45
         assert checkout_solution.checkout('BBB') == 75
-
-
