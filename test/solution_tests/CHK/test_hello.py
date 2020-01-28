@@ -18,4 +18,8 @@ class TestCheckout():
 
     def test_multiple_priced_skus(self):
         assert checkout_solution.checkout('AAA') == 130
+        assert checkout_solution.checkout('AAAA') == 180
+        assert checkout_solution.checkout('BB') == 45
+        assert checkout_solution.checkout('BBB') == 75
+
 
