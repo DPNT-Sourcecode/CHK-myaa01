@@ -10,6 +10,9 @@ class TestCheckout():
         assert checkout_solution.checkout('__*&^TBN') == -1
         assert checkout_solution.checkout('123') == -1
 
+    def test_empty_input(self):
+        assert checkout_solution.checkout('') == 0
+
 
 
 
