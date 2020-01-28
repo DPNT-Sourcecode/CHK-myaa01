@@ -20,10 +20,14 @@ class TestCheckout():
         assert checkout_solution.checkout('AAA') == 130
         assert checkout_solution.checkout('AAAA') == 180
         assert checkout_solution.checkout('AAAAA') == 200
+        assert checkout_solution.checkout('AAAAAAAA') == 330
         assert checkout_solution.checkout('BB') == 45
         assert checkout_solution.checkout('BBB') == 75
 
     def test_special_offers_combination(self):
+        assert checkout_solution.checkout('EE') == 80
         assert checkout_solution.checkout('BEE') == 80
         assert checkout_solution.checkout('BBEE') == 110
+        assert checkout_solution.checkout('BBBEE') == 125
+
 
