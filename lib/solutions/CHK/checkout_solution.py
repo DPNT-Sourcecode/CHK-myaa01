@@ -30,6 +30,7 @@ def checkout(skus):
         set_frequency = count_E // 2
         while letter_counts['B'] > 0 and set_frequency > 0:
             letter_counts['B'] -= 1
+            set_frequency -= 1
         price += (sku_prices['E'] * count_E)
 
     if 'A' in letter_counts:
@@ -49,5 +50,6 @@ def checkout(skus):
         price += (sku_prices[letter] * count)
 
     return price
+
 
 
