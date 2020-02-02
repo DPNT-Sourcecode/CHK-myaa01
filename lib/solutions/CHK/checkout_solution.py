@@ -30,10 +30,13 @@ class SpecialOffer():
 
 
 class FreeOffer(SpecialOffer):
-    def __init__(self, item, quantity, free_item, minimum_quantity=0):
+    def __init__(self, item, quantity, free_item):
         super().__init__(item, quantity)
         self.free_item = free_item
-        self.minimum_quantity = minimum_quantity
+        if item == free_item:
+            self.minimum_quantity = quantity + 1
+        else:
+            self.minimum_quantity =
 
     def is_applicable_to_order(self, order):
         free_item_count = order.get_item_count(self.free_item)
@@ -68,11 +71,6 @@ class MultiPricingOffer(SpecialOffer):
         order.reduce_item_count(self.item, apply_frequency * self.quantity)
 
         return order, total_discount
-
-    def apply_on_order(self, order):
-        if not self.is_applicable_to_order(order):
-            raise ValueError("Cannot apply special offer to order")
-
 
 
 
@@ -185,6 +183,7 @@ def checkout(skus):
             subtotal -= discount
 
     return subtotal
+
 
 
 

@@ -4,8 +4,6 @@ from solutions.CHK import checkout_solution
 class TestCheckout():
     def test_illegal_input(self):
         """ Reject inputs that contain any letter that is not one of A,B,C,D,E """
-        assert checkout_solution.checkout('ABCDEFGZ') == -1
-        assert checkout_solution.checkout('J') == -1
         assert checkout_solution.checkout('abcd') == -1
         assert checkout_solution.checkout('__*&^TBN') == -1
         assert checkout_solution.checkout('123') == -1
@@ -37,3 +35,4 @@ class TestCheckout():
         assert checkout_solution.checkout('FFF') == 20
         assert checkout_solution.checkout('FFFF') == 30
         assert checkout_solution.checkout('FFFFF') == 40
+
