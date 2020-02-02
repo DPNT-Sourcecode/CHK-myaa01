@@ -1,3 +1,6 @@
+from collections import Counter
+
+
 class Item():
     def __init__(self, letter, price):
         self.letter = letter
@@ -7,9 +10,13 @@ class Item():
 class Order():
     def __init__(self, order_string):
         self.order_string = order_string
+        self.item_count = Counter(order_string)
 
     def get_item_count(self, item):
-        return self.order_string.count(item.letter)
+        return self.item_count[item.letter]
+
+    def reduce_item_count(self, item):
+        self.item_count[item.letter] -= 1
 
 
 class SpecialOffer():
@@ -46,13 +53,12 @@ class FreeOffer(SpecialOffer):
         free_item_count = order.get_item_count(self.free_item)
         return super().is_applicable_to_order(order) and free_item_count > 0
 
-    def calculate_discount(self, order):
+    def apply_on_order(self, order):
         if not self.is_applicable_to_order(order):
             raise ValueError("Cannot apply special offer to order")
 
-        apply_frequency = order.get_item_count(self.item) // self.quantity
-        total_discount = self.free_item.price * apply_frequency
-        return total_discount
+        order.reduce_item_count(self.item)
+        return order
 
 
 # Define items and offers
@@ -97,7 +103,8 @@ def checkout(skus):
 
     # First
     for free_offer in FREE_OFFERS:
-        order = free_offer.apply_on_order(order)
+        if free_offer.is_applicable_to_order(order):
+            order = free_offer.apply_on_order(order)
 
     subtotal = 0
     # Then calculate subtotal without taking into account of special offers
@@ -106,9 +113,9 @@ def checkout(skus):
         subtotal += item.price * quantity
 
     # Deduct the offers discounts equivalent prices.
-    for free_offer in MULTI_PRICING_OFFERS:
-        if offer.is_applicable_to_order(order):
-            discount = offer.calculate_discount(order)
+    for multi_pricing_offer in MULTI_PRICING_OFFERS:
+        if multi_pricing_offer.is_applicable_to_order(order):
+            discount = multi_pricing_offer.calculate_discount(order)
             subtotal -= discount
 
     return subtotal
@@ -168,6 +175,7 @@ def checkout(skus):
 
     return price
 """
+
 
 
 
