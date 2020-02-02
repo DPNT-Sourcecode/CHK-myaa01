@@ -84,6 +84,26 @@ ITEM_C = Item('C', 20)
 ITEM_D = Item('D', 15)
 ITEM_E = Item('E', 40)
 ITEM_F = Item('F', 10)
+ITEM_G = Item('G', 20)
+ITEM_H = Item('H', 10)
+ITEM_I = Item('I', 35)
+ITEM_J = Item('J', 60)
+ITEM_K = Item('K', 80)
+ITEM_L = Item('L', 90)
+ITEM_M = Item('M', 15)
+ITEM_N = Item('N', 40)
+ITEM_O = Item('O', 10)
+ITEM_P = Item('P', 50)
+ITEM_Q = Item('Q', 30)
+ITEM_R = Item('R', 50)
+ITEM_S = Item('S', 30)
+ITEM_T = Item('T', 20)
+ITEM_U = Item('U', 40)
+ITEM_V = Item('V', 50)
+ITEM_W = Item('W', 20)
+ITEM_X = Item('X', 90)
+ITEM_Y = Item('Y', 10)
+ITEM_Z = Item('Z', 50)
 
 ITEMS = [
     ITEM_A,
@@ -92,18 +112,47 @@ ITEMS = [
     ITEM_D,
     ITEM_E,
     ITEM_F,
+    ITEM_G,
+    ITEM_H,
+    ITEM_I,
+    ITEM_J,
+    ITEM_K,
+    ITEM_L,
+    ITEM_M,
+    ITEM_N,
+    ITEM_O,
+    ITEM_P,
+    ITEM_Q,
+    ITEM_R,
+    ITEM_S,
+    ITEM_T,
+    ITEM_U,
+    ITEM_V,
+    ITEM_W,
+    ITEM_X,
+    ITEM_Y,
+    ITEM_Z,
+]
+
+FREE_OFFERS = [
+    FreeOffer(ITEM_E, 2, ITEM_B),
+    FreeOffer(ITEM_F, 2, ITEM_F, 3),
+    FreeOffer(ITEM_N, 3, ITEM_M),
+    FreeOffer(ITEM_R, 3, ITEM_Q),
+    FreeOffer(ITEM_U, 3, ITEM_U, 4),
 ]
 
 MULTI_PRICING_OFFERS = [
     MultiPricingOffer(ITEM_A, 5, 200),
     MultiPricingOffer(ITEM_A, 3, 130),
     MultiPricingOffer(ITEM_B, 2, 45),
+    MultiPricingOffer(ITEM_K, 2, 150),
+    MultiPricingOffer(ITEM_P, 5, 200),
+    MultiPricingOffer(ITEM_Q, 3, 80),
+    MultiPricingOffer(ITEM_V, 3, 130),
+    MultiPricingOffer(ITEM_V, 2, 90),
 ]
 
-FREE_OFFERS = [
-    FreeOffer(ITEM_E, 2, ITEM_B),
-    FreeOffer(ITEM_F, 2, ITEM_F, 3),
-]
 
 def checkout(skus):
     available_item_letters = [item.letter for item in ITEMS]
@@ -134,3 +183,4 @@ def checkout(skus):
             subtotal -= discount
 
     return subtotal
+
