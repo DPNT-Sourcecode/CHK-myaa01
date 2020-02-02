@@ -1,4 +1,115 @@
+class Item():
+    def __init__(self, letter, price):
+        self.letter = letter
+        self.price = price
 
+
+class Order():
+    def __init__(self, order_string):
+        self.order_string = order_string
+
+    def get_item_count(self, item):
+        return self.order_string.count(item.letter)
+
+
+class SpecialOffer():
+    def __init__(self, item, quantity):
+        self.item = item
+        self.quantity = quantity
+
+    def is_applicable_to_order(order):
+        item_count = order.get_item_count(self.item)
+        return item_count => self.quantity
+
+
+class MultiPricingOffer(SpecialOffer):
+    def __init__(self, item, quantity, offer_price):
+        super().__init__(item, quantity)
+        self.offer_price = offer_price
+
+    def calculate_discount(self, order):
+        if not self.is_applicable_to_order(order):
+            raise ValueError("Cannot apply special offer to order")
+
+        apply_frequency = order.get_item_count(self.item) % self.quantity
+        discount = (self.quantity * item.price) - self.offer_price
+        total_discount = discount * apply_frequency
+        return total_discount
+
+
+class FreeOffer(SpecialOffer):
+    def __init__(self, item, quantity, free_item):
+        super().__init__(item, quantity)
+        self.free_item = free_item
+
+    def is_applicable_to_order(order):
+        free_item_count = order.get_item_count(self.free_item)
+        return super().is_applicable_to_order(order) and free_item_count > 0:
+
+    def calculate_discount(self, order):
+        if not self.is_applicable_to_order(order):
+            raise ValueError("Cannot apply special offer to order")
+
+        apply_frequency = order.get_item_count(self.item) % self.quantity
+        total_discount = self.free_item.price * apply_frequency
+        return total_discount
+
+
+# Define items and offers
+
+ITEM_A = Item('A', 50)
+ITEM_B = Item('B', 30)
+ITEM_C = Item('C', 20)
+ITEM_D = Item('D', 15)
+ITEM_E = Item('E', 40)
+ITEM_F = Item('F', 10)
+
+ITEMS = [
+    ITEM_A,
+    ITEM_B,
+    ITEM_C,
+    ITEM_D,
+    ITEM_E,
+    ITEM_F,
+]
+
+OFFERS = [
+    MultiPricingOffer(ITEM_A, 3, 130),
+    MultiPricingOffer(ITEM_A, 5, 200),
+    MultiPricingOffer(ITEM_B, 2, 45),
+    FreeOffer(ITEM_E, 2, ITEM_E),
+    FreeOffer(ITEM_F, 2, ITEM_F),
+]
+
+
+def checkout(skus):
+    available_item_letters = [item.letter for item in ITEMS]
+
+    if not all(sku in available_item_letters for sku in skus):
+        return -1
+
+    if len(skus) == 0:
+        return 0
+
+    order = Order(skus)
+
+    subtotal = 0
+    # First calculate subtotal without taking into account of special offers
+    for item in ITEMS:
+        quantity = order.get_item_count(item)
+        subtotal += item.price * quantity
+
+    # Deduct the offers discounts equivalent prices.
+    for offer in OFFERS:
+        if offer.is_applicable_to_order(order):
+            discount = offer.calculate_discount(order)
+            subtotal -= discount
+
+    return subtotal
+
+
+
+"""
 from collections import Counter
 # noinspection PyUnusedLocal
 # skus = unicode string
@@ -50,3 +161,5 @@ def checkout(skus):
         price += (sku_prices[letter] * count)
 
     return price
+"""
+

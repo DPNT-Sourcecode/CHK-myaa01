@@ -29,3 +29,11 @@ class TestCheckout():
         assert checkout_solution.checkout('BEE') == 80
         assert checkout_solution.checkout('BBEE') == 110
         assert checkout_solution.checkout('BBBEE') == 125
+
+
+class TestItem():
+    def test_item(self):
+        item_A = checkout_solution.Item('A', 3)
+        assert item_A.letter == 'A'
+        assert item_A.price == 3
+
