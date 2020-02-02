@@ -31,8 +31,8 @@ class MultiPricingOffer(SpecialOffer):
         if not self.is_applicable_to_order(order):
             raise ValueError("Cannot apply special offer to order")
 
-        apply_frequency = order.get_item_count(self.item) % self.quantity
-        discount = (self.quantity * item.price) - self.offer_price
+        apply_frequency = order.get_item_count(self.item) // self.quantity
+        discount = (self.quantity * self.item.price) - self.offer_price
         total_discount = discount * apply_frequency
         return total_discount
 
@@ -50,7 +50,7 @@ class FreeOffer(SpecialOffer):
         if not self.is_applicable_to_order(order):
             raise ValueError("Cannot apply special offer to order")
 
-        apply_frequency = order.get_item_count(self.item) % self.quantity
+        apply_frequency = order.get_item_count(self.item) // self.quantity
         total_discount = self.free_item.price * apply_frequency
         return total_discount
 
@@ -162,5 +162,6 @@ def checkout(skus):
 
     return price
 """
+
 
 
