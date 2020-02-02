@@ -90,7 +90,7 @@ class GroupDiscountOffer():
 
         item_count = {}
         for item in self.items:
-            item_count[item] = order.get_item_count(self.item)
+            item_count[item] = order.get_item_count(item)
 
         apply_frequency = sum(item_count.values()) // self.quantity
 
@@ -220,6 +220,7 @@ def checkout(skus):
             subtotal -= discount
 
     return subtotal
+
 
 
 
