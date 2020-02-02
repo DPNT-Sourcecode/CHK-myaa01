@@ -37,7 +37,8 @@ class FreeOffer(SpecialOffer):
 
     def is_applicable_to_order(self, order):
         free_item_count = order.get_item_count(self.free_item)
-        return super().is_applicable_to_order(order) and free_item_count > 0 and self.quantity >= self.minimum_quantity
+        item_count = order.get_item_count(self.item)
+        return super().is_applicable_to_order(order) and free_item_count > 0 and item_count >= self.minimum_quantity
 
     def calculate_discount(self, order):
         if not self.is_applicable_to_order(order):
@@ -186,6 +187,7 @@ def checkout(skus):
 
     return price
 """
+
 
 
 
