@@ -80,8 +80,8 @@ class GroupDiscountOffer():
 
     def is_applicable_to_order(self, order):
         item_count = 0
-        for item in items:
-            item_count += order.get_item_count(self.item)
+        for item in self.items:
+            item_count += order.get_item_count(item)
         return item_count >= self.quantity
 
     def calculate_discount(self, order):
@@ -101,15 +101,12 @@ class GroupDiscountOffer():
             if count > num_items_discounted:
                 count = num_items_discounted
             original_price += count * item.price
+            order.reduce_item_count(item, count)
             num_items_discounted -= count
             if count <= 0:
                 break
 
-        discount = original_price - self.offer_price
-        total_discount = discount * apply_frequency
-
-        order.reduce_item_count(self.item, apply_frequency * self.quantity)
-
+        total_discount = original_price - (self.offer_price * apply_frequency)
         return order, total_discount
 
 
@@ -223,5 +220,6 @@ def checkout(skus):
             subtotal -= discount
 
     return subtotal
+
 
 
