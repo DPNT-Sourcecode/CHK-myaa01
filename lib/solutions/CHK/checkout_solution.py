@@ -88,7 +88,7 @@ ITEM_G = Item('G', 20)
 ITEM_H = Item('H', 10)
 ITEM_I = Item('I', 35)
 ITEM_J = Item('J', 60)
-ITEM_K = Item('K', 80)
+ITEM_K = Item('K', 70)
 ITEM_L = Item('L', 90)
 ITEM_M = Item('M', 15)
 ITEM_N = Item('N', 40)
@@ -96,14 +96,14 @@ ITEM_O = Item('O', 10)
 ITEM_P = Item('P', 50)
 ITEM_Q = Item('Q', 30)
 ITEM_R = Item('R', 50)
-ITEM_S = Item('S', 30)
+ITEM_S = Item('S', 20)
 ITEM_T = Item('T', 20)
 ITEM_U = Item('U', 40)
 ITEM_V = Item('V', 50)
 ITEM_W = Item('W', 20)
-ITEM_X = Item('X', 90)
-ITEM_Y = Item('Y', 10)
-ITEM_Z = Item('Z', 50)
+ITEM_X = Item('X', 17)
+ITEM_Y = Item('Y', 20)
+ITEM_Z = Item('Z', 21)
 
 ITEMS = [
     ITEM_A,
@@ -136,10 +136,10 @@ ITEMS = [
 
 FREE_OFFERS = [
     FreeOffer(ITEM_E, 2, ITEM_B),
-    FreeOffer(ITEM_F, 2, ITEM_F, 3),
+    FreeOffer(ITEM_F, 2, ITEM_F),
     FreeOffer(ITEM_N, 3, ITEM_M),
     FreeOffer(ITEM_R, 3, ITEM_Q),
-    FreeOffer(ITEM_U, 3, ITEM_U, 4),
+    FreeOffer(ITEM_U, 3, ITEM_U),
 ]
 
 MULTI_PRICING_OFFERS = [
@@ -148,7 +148,7 @@ MULTI_PRICING_OFFERS = [
     MultiPricingOffer(ITEM_B, 2, 45),
     MultiPricingOffer(ITEM_H, 10, 80),
     MultiPricingOffer(ITEM_H, 5, 45),
-    MultiPricingOffer(ITEM_K, 2, 150),
+    MultiPricingOffer(ITEM_K, 2, 120),
     MultiPricingOffer(ITEM_P, 5, 200),
     MultiPricingOffer(ITEM_Q, 3, 80),
     MultiPricingOffer(ITEM_V, 3, 130),
@@ -185,5 +185,6 @@ def checkout(skus):
             subtotal -= discount
 
     return subtotal
+
 
 
