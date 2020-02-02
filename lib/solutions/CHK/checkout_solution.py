@@ -44,7 +44,9 @@ class FreeOffer(SpecialOffer):
         if not self.is_applicable_to_order(order):
             raise ValueError("Cannot apply special offer to order")
 
-        order.reduce_item_count(self.free_item, 1)
+        apply_frequency = order.get_item_count(self.item) // self.quantity
+
+        order.reduce_item_count(self.free_item, apply_frequency)
         total_discount = 0
         return order, total_discount
 
@@ -187,6 +189,7 @@ def checkout(skus):
 
     return price
 """
+
 
 
 

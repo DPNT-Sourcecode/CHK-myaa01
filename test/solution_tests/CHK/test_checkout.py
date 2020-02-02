@@ -21,6 +21,7 @@ class TestCheckout():
         assert checkout_solution.checkout('AAAA') == 180
         assert checkout_solution.checkout('AAAAA') == 200
         assert checkout_solution.checkout('AAAAAAAA') == 330
+        assert checkout_solution.checkout('AAAAAAAAAA') == 400
         assert checkout_solution.checkout('BB') == 45
         assert checkout_solution.checkout('BBB') == 75
 
@@ -29,9 +30,12 @@ class TestCheckout():
         assert checkout_solution.checkout('BEE') == 80
         assert checkout_solution.checkout('BBEE') == 110
         assert checkout_solution.checkout('BBBEE') == 125
+        assert checkout_solution.checkout('EEEEBB') == 160
+        assert checkout_solution.checkout('BEBEEE') == 160
         assert checkout_solution.checkout('F') == 10
         assert checkout_solution.checkout('FF') == 20
         assert checkout_solution.checkout('FFF') == 20
-        assert checkout_solution.checkout('FFFF') == 30
+        assert checkout_solution.checkout('FFFF') == 20
+
 
 
