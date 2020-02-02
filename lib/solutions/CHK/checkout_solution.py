@@ -15,8 +15,8 @@ class Order():
     def get_item_count(self, item):
         return self.item_count[item.letter]
 
-    def reduce_item_count(self, item):
-        self.item_count[item.letter] -= 1
+    def reduce_item_count(self, item, quantity):
+        self.item_count[item.letter] -= quantity
 
 
 class SpecialOffer():
@@ -43,6 +43,12 @@ class MultiPricingOffer(SpecialOffer):
         total_discount = discount * apply_frequency
         return total_discount
 
+    def apply_on_order(self, order):
+        if not self.is_applicable_to_order(order):
+            raise ValueError("Cannot apply special offer to order")
+
+        order.reduce_item_count(self.item, self.quantity)
+        return order
 
 class FreeOffer(SpecialOffer):
     def __init__(self, item, quantity, free_item):
@@ -57,7 +63,7 @@ class FreeOffer(SpecialOffer):
         if not self.is_applicable_to_order(order):
             raise ValueError("Cannot apply special offer to order")
 
-        order.reduce_item_count(self.free_item)
+        order.reduce_item_count(self.free_item, 1)
         return order
 
 
@@ -80,8 +86,8 @@ ITEMS = [
 ]
 
 MULTI_PRICING_OFFERS = [
-    MultiPricingOffer(ITEM_A, 3, 130),
     MultiPricingOffer(ITEM_A, 5, 200),
+    MultiPricingOffer(ITEM_A, 3, 130),
     MultiPricingOffer(ITEM_B, 2, 45),
 ]
 
@@ -116,6 +122,7 @@ def checkout(skus):
     for multi_pricing_offer in MULTI_PRICING_OFFERS:
         if multi_pricing_offer.is_applicable_to_order(order):
             discount = multi_pricing_offer.calculate_discount(order)
+            order = free_offer.apply_on_order(order)
             subtotal -= discount
 
     return subtotal
@@ -175,9 +182,3 @@ def checkout(skus):
 
     return price
 """
-
-
-
-
-
-
