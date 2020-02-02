@@ -88,7 +88,12 @@ class GroupDiscountOffer():
         if not self.is_applicable_to_order(order):
             raise ValueError("Cannot apply special offer to order")
 
-        apply_frequency = order.get_item_count(self.item) // self.quantity
+        item_count = {}
+        for item in self.items:
+            item_count[item] = order.get_item_count(self.item)
+
+
+        apply_frequency = sum(item_count.values()) // self.quantity
         discount = (self.quantity * self.item.price) - self.offer_price
         total_discount = discount * apply_frequency
 
@@ -207,3 +212,4 @@ def checkout(skus):
             subtotal -= discount
 
     return subtotal
+
