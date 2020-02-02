@@ -17,9 +17,9 @@ class SpecialOffer():
         self.item = item
         self.quantity = quantity
 
-    def is_applicable_to_order(order):
+    def is_applicable_to_order(self, order):
         item_count = order.get_item_count(self.item)
-        return item_count => self.quantity
+        return item_count >= self.quantity
 
 
 class MultiPricingOffer(SpecialOffer):
@@ -42,9 +42,9 @@ class FreeOffer(SpecialOffer):
         super().__init__(item, quantity)
         self.free_item = free_item
 
-    def is_applicable_to_order(order):
+    def is_applicable_to_order(self, order):
         free_item_count = order.get_item_count(self.free_item)
-        return super().is_applicable_to_order(order) and free_item_count > 0:
+        return super().is_applicable_to_order(order) and free_item_count > 0
 
     def calculate_discount(self, order):
         if not self.is_applicable_to_order(order):
@@ -77,7 +77,7 @@ OFFERS = [
     MultiPricingOffer(ITEM_A, 3, 130),
     MultiPricingOffer(ITEM_A, 5, 200),
     MultiPricingOffer(ITEM_B, 2, 45),
-    FreeOffer(ITEM_E, 2, ITEM_E),
+    FreeOffer(ITEM_E, 2, ITEM_B),
     FreeOffer(ITEM_F, 2, ITEM_F),
 ]
 
@@ -162,4 +162,5 @@ def checkout(skus):
 
     return price
 """
+
 
