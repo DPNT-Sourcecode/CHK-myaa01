@@ -96,6 +96,7 @@ class GroupDiscountOffer():
 
         num_items_discounted = apply_frequency * self.quantity
         original_price = 0
+        import pdb; pdb.set_trace()
         for item in self.items:
             count = item_count[item]
             if count > num_items_discounted:
@@ -103,10 +104,10 @@ class GroupDiscountOffer():
             original_price += count * item.price
             order.reduce_item_count(item, count)
             num_items_discounted -= count
-            if count <= 0:
+            if num_items_discounted <= 0:
                 break
 
-        total_discount = original_price - (self.offer_price * apply_frequency)
+        total_discount =      - (self.offer_price * apply_frequency)
         return order, total_discount
 
 
@@ -220,8 +221,3 @@ def checkout(skus):
             subtotal -= discount
 
     return subtotal
-
-
-
-
-
