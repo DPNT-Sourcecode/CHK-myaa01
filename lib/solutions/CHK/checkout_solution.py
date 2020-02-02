@@ -72,7 +72,10 @@ class MultiPricingOffer(SpecialOffer):
 
         return order, total_discount
 
-
+class GroupDiscountOffer():
+    def __init__(self, items, quantity, offer_price):
+        self.items = items
+        self.quantity = quantity
 
 # Define items and offers
 
@@ -151,6 +154,7 @@ MULTI_PRICING_OFFERS = [
     MultiPricingOffer(ITEM_Q, 3, 80),
     MultiPricingOffer(ITEM_V, 3, 130),
     MultiPricingOffer(ITEM_V, 2, 90),
+    GroupOffer([ITEM_S, ITEM_T, ITEM_X, ITEM_Y, ITEM_Z], 3, 45),
 ]
 
 
@@ -183,6 +187,7 @@ def checkout(skus):
             subtotal -= discount
 
     return subtotal
+
 
 
 
