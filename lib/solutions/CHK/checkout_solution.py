@@ -146,6 +146,8 @@ MULTI_PRICING_OFFERS = [
     MultiPricingOffer(ITEM_A, 5, 200),
     MultiPricingOffer(ITEM_A, 3, 130),
     MultiPricingOffer(ITEM_B, 2, 45),
+    MultiPricingOffer(ITEM_H, 10, 80),
+    MultiPricingOffer(ITEM_H, 5, 45),
     MultiPricingOffer(ITEM_K, 2, 150),
     MultiPricingOffer(ITEM_P, 5, 200),
     MultiPricingOffer(ITEM_Q, 3, 80),
@@ -183,4 +185,5 @@ def checkout(skus):
             subtotal -= discount
 
     return subtotal
+
 
