@@ -207,9 +207,3 @@ def checkout(skus):
             subtotal -= discount
 
     return subtotal
-
-
-
-
-
-
