@@ -64,7 +64,7 @@ class MultiPricingOffer(SpecialOffer):
         discount = (self.quantity * self.item.price) - self.offer_price
         total_discount = discount * apply_frequency
 
-        order.reduce_item_count(self.item, self.quantity)
+        order.reduce_item_count(self.item, apply_frequency * self.quantity)
 
         return order, total_discount
 
@@ -189,6 +189,7 @@ def checkout(skus):
 
     return price
 """
+
 
 
 
