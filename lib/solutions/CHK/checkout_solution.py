@@ -187,7 +187,7 @@ MULTI_PRICING_OFFERS = [
     MultiPricingOffer(ITEM_Q, 3, 80),
     MultiPricingOffer(ITEM_V, 3, 130),
     MultiPricingOffer(ITEM_V, 2, 90),
-    GroupDiscountOffer([ITEM_S, ITEM_T, ITEM_X, ITEM_Y, ITEM_Z], 3, 45),
+    GroupDiscountOffer([ITEM_Z, ITEM_S, ITEM_T, ITEM_Y, ITEM_X], 3, 45),
 ]
 
 
@@ -220,6 +220,7 @@ def checkout(skus):
             subtotal -= discount
 
     return subtotal
+
 
 
 
