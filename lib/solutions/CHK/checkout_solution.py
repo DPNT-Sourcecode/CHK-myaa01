@@ -73,14 +73,16 @@ ITEMS = [
     ITEM_F,
 ]
 
-OFFERS = [
+MULTI_PRICING_OFFERS = [
     MultiPricingOffer(ITEM_A, 3, 130),
     MultiPricingOffer(ITEM_A, 5, 200),
     MultiPricingOffer(ITEM_B, 2, 45),
+]
+
+FREE_OFFERS = [
     FreeOffer(ITEM_E, 2, ITEM_B),
     FreeOffer(ITEM_F, 2, ITEM_F),
 ]
-
 
 def checkout(skus):
     available_item_letters = [item.letter for item in ITEMS]
@@ -93,14 +95,18 @@ def checkout(skus):
 
     order = Order(skus)
 
+    # First
+    for free_offer in FREE_OFFERS:
+        order = free_offer.apply_on_order(order)
+
     subtotal = 0
-    # First calculate subtotal without taking into account of special offers
+    # Then calculate subtotal without taking into account of special offers
     for item in ITEMS:
         quantity = order.get_item_count(item)
         subtotal += item.price * quantity
 
     # Deduct the offers discounts equivalent prices.
-    for offer in OFFERS:
+    for free_offer in MULTI_PRICING_OFFERS:
         if offer.is_applicable_to_order(order):
             discount = offer.calculate_discount(order)
             subtotal -= discount
@@ -162,6 +168,7 @@ def checkout(skus):
 
     return price
 """
+
 
 
 
