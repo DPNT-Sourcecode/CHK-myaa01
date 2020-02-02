@@ -36,7 +36,7 @@ class FreeOffer(SpecialOffer):
         if item == free_item:
             self.minimum_quantity = quantity + 1
         else:
-            self.minimum_quantity =
+            self.minimum_quantity = 0
 
     def is_applicable_to_order(self, order):
         free_item_count = order.get_item_count(self.free_item)
@@ -92,9 +92,20 @@ class GroupDiscountOffer():
         for item in self.items:
             item_count[item] = order.get_item_count(self.item)
 
-
         apply_frequency = sum(item_count.values()) // self.quantity
-        discount = (self.quantity * self.item.price) - self.offer_price
+
+        num_items_discounted = apply_frequency * self.quantity
+        original_price = 0
+        for item in self.items:
+            count = item_count[item]
+            if count > num_items_discounted:
+                count = num_items_discounted
+            original_price += count * item.price
+            num_items_discounted -= count
+            if count <= 0:
+                break
+
+        discount = original_price - self.offer_price
         total_discount = discount * apply_frequency
 
         order.reduce_item_count(self.item, apply_frequency * self.quantity)
@@ -179,7 +190,7 @@ MULTI_PRICING_OFFERS = [
     MultiPricingOffer(ITEM_Q, 3, 80),
     MultiPricingOffer(ITEM_V, 3, 130),
     MultiPricingOffer(ITEM_V, 2, 90),
-    GroupOffer([ITEM_S, ITEM_T, ITEM_X, ITEM_Y, ITEM_Z], 3, 45),
+    GroupDiscountOffer([ITEM_S, ITEM_T, ITEM_X, ITEM_Y, ITEM_Z], 3, 45),
 ]
 
 
@@ -212,4 +223,5 @@ def checkout(skus):
             subtotal -= discount
 
     return subtotal
+
 
