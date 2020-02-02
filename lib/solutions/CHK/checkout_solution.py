@@ -30,9 +30,10 @@ class SpecialOffer():
 
 
 class FreeOffer(SpecialOffer):
-    def __init__(self, item, quantity, free_item):
+    def __init__(self, item, quantity, free_item, minimum_quantity=0):
         super().__init__(item, quantity)
         self.free_item = free_item
+        self.minimum_quantity = minimum_quantity
 
     def is_applicable_to_order(self, order):
         free_item_count = order.get_item_count(self.free_item)
@@ -90,12 +91,14 @@ ITEMS = [
 ]
 
 MULTI_PRICING_OFFERS = [
-    FreeOffer(ITEM_E, 2, ITEM_B),
-    FreeOffer(ITEM_F, 2, ITEM_F),
     MultiPricingOffer(ITEM_A, 5, 200),
     MultiPricingOffer(ITEM_A, 3, 130),
     MultiPricingOffer(ITEM_B, 2, 45),
+]
 
+FREE_OFFERS = [
+    FreeOffer(ITEM_E, 2, ITEM_B),
+    FreeOffer(ITEM_F, 2, ITEM_F, 3),
 ]
 
 def checkout(skus):
@@ -183,4 +186,5 @@ def checkout(skus):
 
     return price
 """
+
 
